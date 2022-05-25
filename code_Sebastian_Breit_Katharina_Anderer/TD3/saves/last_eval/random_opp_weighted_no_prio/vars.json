@@ -1,0 +1,26 @@
+[
+  {
+    "path_with_run_no": "TD3/saves/last_eval/random_opp_weighted_no_prio/",
+    "episodes": 4100,
+    "lr_critic": 0.001,
+    "max_steps": 250,
+    "mem_max_size": 500000,
+    "discount": 0.95,
+    "tau": 0.05,
+    "batch_size": 100,
+    "policy_noise": 0.2,
+    "with_defense": false,
+    "with_shooting": false,
+    "with_basic": true,
+    "with_self_train": false,
+    "with_prio_replay": false,
+    "weak_opponent": true,
+    "opp_score_rew_disabled": false,
+    "rand_explore": true,
+    "closeness_reward_disabled": false,
+    "initial_random_exploration": 2500,
+    "exploration_noise": 0.1,
+    "experiences_per_sampling": 10,
+    "custom_notes": "without prio replay, random-opp, probs 0.4 for basic weak and strong 0.2 for self, buffer size now 5e5,update prios every 10, no loading, closeness rew enabled, opp score punish enabled"
+  }
+]
