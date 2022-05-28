@@ -1,4 +1,4 @@
-# Reinforcement Learning Project in 2020/2021
+# Reinforcement Learning Project (winter term 2020/2021)
 
 
 
