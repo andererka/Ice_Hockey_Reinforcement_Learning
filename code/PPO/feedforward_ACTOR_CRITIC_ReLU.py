@@ -7,9 +7,6 @@ from torch.distributions import Categorical
 from torch.distributions import MultivariateNormal
 
 
-
-
-
 class ActorCritic(nn.Module):
     def __init__(self, state_dim, action_dim, n_latent_var, action_std):
         super(ActorCritic, self).__init__()
@@ -23,30 +20,29 @@ class ActorCritic(nn.Module):
         self.cov_mat = torch.diag(self.cov_var)
 
         self.action_layer = nn.Sequential(
-                nn.Linear(state_dim, n_latent_var),
-                nn.ReLU(),
-                nn.Linear(n_latent_var, n_latent_var),
-                nn.ReLU(),
-                nn.Linear(n_latent_var, action_dim),
-                nn.ReLU()
-                #nn.Softmax(dim=-1)
-                )
+            nn.Linear(state_dim, n_latent_var),
+            nn.ReLU(),
+            nn.Linear(n_latent_var, n_latent_var),
+            nn.ReLU(),
+            nn.Linear(n_latent_var, action_dim),
+            nn.ReLU()
+            # nn.Softmax(dim=-1)
+        )
 
         # critic
         self.value_layer = nn.Sequential(
-                nn.Linear(state_dim, n_latent_var),
-                nn.ReLU(),
-                nn.Linear(n_latent_var, n_latent_var),
-                nn.ReLU(),
-                nn.Linear(n_latent_var, 1)
-                )
+            nn.Linear(state_dim, n_latent_var),
+            nn.ReLU(),
+            nn.Linear(n_latent_var, n_latent_var),
+            nn.ReLU(),
+            nn.Linear(n_latent_var, 1),
+        )
 
+        self.device = "cpu"
 
-        self.device = 'cpu'
-
-        self.action_var = torch.full((action_dim,), action_std*action_std).to(self.device)
-
-
+        self.action_var = torch.full((action_dim,), action_std * action_std).to(
+            self.device
+        )
 
     def logprobs(self, state):
         state = torch.from_numpy(state).float().to(self.device)
@@ -55,27 +51,22 @@ class ActorCritic(nn.Module):
         dist = Categorical(action_probs)
         action = dist.sample()
         action_logprobs = dist.log_prob(action)
-        
 
         return action_logprobs
 
     def act(self, state, memory):
         action_mean = self.action_layer(state)
         cov_mat = torch.diag(self.action_var).to(self.device)
-        
+
         dist = MultivariateNormal(action_mean, cov_mat)
         action = dist.sample()
         action_logprob = dist.log_prob(action)
-        
+
         memory.states.append(state)
         memory.actions.append(action)
         memory.logprobs.append(action_logprob)
-        
+
         return action.detach()
-
-
-
-
 
     def evaluate(self, state, action):
 

@@ -6,8 +6,8 @@ import termios
 
 from twisted.internet import reactor
 
-class InteractiveMode:
 
+class InteractiveMode:
     def __init__(self, client):
         self.client = client
         self.game_loop_cmd = GameLoopCMD(client)
@@ -34,9 +34,11 @@ class InteractiveMode:
     def check_for_input(self):
         if self.keyboard_input_available():
             esc_key_pushed = False
-            while self.keyboard_input_available():  # check for key push and empty stdin (in case several keys were pushed)
+            while (
+                self.keyboard_input_available()
+            ):  # check for key push and empty stdin (in case several keys were pushed)
                 c = sys.stdin.read(1)
-                if c == '\x1b':  # x1b is ESC
+                if c == "\x1b":  # x1b is ESC
                     esc_key_pushed = True
             if esc_key_pushed:
                 termios.tcsetattr(sys.stdin, termios.TCSADRAIN, self.old_settings)
@@ -46,9 +48,10 @@ class InteractiveMode:
                 self.running = False
                 self.client.verbose = True
 
+
 class GameLoopCMD(cmd.Cmd):
-    intro = 'Type help or ? to list commands.\n'
-    prompt = '(cmd) '
+    intro = "Type help or ? to list commands.\n"
+    prompt = "(cmd) "
     file = None
 
     def __init__(self, client):
@@ -57,7 +60,7 @@ class GameLoopCMD(cmd.Cmd):
         self.client = client
 
     def do_stop_queueing(self, arg):
-        'Stop queuing for game'
+        "Stop queuing for game"
         reactor.callFromThread(self.client.stop_queueing)
         return True
 
@@ -65,9 +68,10 @@ class GameLoopCMD(cmd.Cmd):
         line = line.lower()
         return line
 
+
 class ClientCMD(cmd.Cmd):
-    intro = 'Type help or ? to list commands.\n'
-    prompt = '(cmd) '
+    intro = "Type help or ? to list commands.\n"
+    prompt = "(cmd) "
     file = None
 
     def __init__(self, client):
@@ -76,8 +80,8 @@ class ClientCMD(cmd.Cmd):
         self.client = client
 
     def do_start_queuing(self, arg):
-        'Start queuing for game, optinal argument int: number of games to play'
-        if arg != '':
+        "Start queuing for game, optinal argument int: number of games to play"
+        if arg != "":
             self.client.num_games = int(arg)
         reactor.callFromThread(self.client.start_queuing)
         return True

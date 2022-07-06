@@ -21,8 +21,7 @@ class Memory:
         del self.is_terminals[:]
 
 
-
-class MyPlayer():
+class MyPlayer:
     def __init__(self, ppo, memory):
         self.ppo = ppo
         self.memory = memory
@@ -30,4 +29,3 @@ class MyPlayer():
     def act(self, obs, verbose=False):
         action = self.ppo.select_action(obs, self.memory)
         return action[:4]
-

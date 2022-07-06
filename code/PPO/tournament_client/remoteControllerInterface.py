@@ -2,22 +2,18 @@ from abc import ABC, abstractmethod
 
 import numpy as np
 
-class RemoteControllerInterface(ABC):
 
-    def __init__(self, 
-                 identifier : str,
-                ) -> None:
+class RemoteControllerInterface(ABC):
+    def __init__(self, identifier: str,) -> None:
 
         """
         Plaese use the identifier to specify the Algorithm you are using 
         """
-            
+
         self.identifier = identifier
 
     @abstractmethod
-    def remote_act(self, 
-            obs : np.ndarray,
-           ) -> np.ndarray:
+    def remote_act(self, obs: np.ndarray,) -> np.ndarray:
 
         """
         Expects an observation as input, returns an action
@@ -40,5 +36,3 @@ class RemoteControllerInterface(ABC):
         """
 
         pass
-        
-        
