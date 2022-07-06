@@ -1,7 +1,6 @@
 
 import os
-#print(os.getcwd())
-#os.chdir('/home/kathi/Dokumente/ReIn_Course/project/laser-hockey-env-master')
+
 import numpy as np
 import laserhockey.hockey_env as h_env
 import gym
@@ -117,21 +116,6 @@ class Memory:
 def make_dir(path):
     os.mkdir(path)
 
-
-
-#ppo.policy_for_self_play.load_state_dict(torch.load('/home/kathi/Dokumente/ReIn_Course/project/laser-hockey-env-master/results/12-13:47:39/PPO_HockeyEnv-eps02-discount099-lr00001-action_std04.pth'))
-
-#ppo.policy_for_self_play2.load_state_dict(torch.load('/home/kathi/Dokumente/ReIn_Course/project/laser-hockey-env-master/results/15-00:29:49/best_weights/PPO_HockeyEnv-eps03-discount099-lr00001.pth'))
-
-#ppo.policy.load_state_dict(torch.load('/home/kathi/Dokumente/ReIn_Course/project/laser-hockey-env-master/results/15-00:29:49/best_weights/PPO_HockeyEnv-eps03-discount099-lr00001.pth'))
-#ppo.policy_old.load_state_dict(torch.load('/home/kathi/Dokumente/ReIn_Course/project/laser-hockey-env-master/results/15-00:29:49/best_weights/PPO_HockeyEnv-eps03-discount099-lr00001.pth'))
-
-#ppo.optimizer.load_state_dict(torch.load('/home/kathi/Dokumente/ReIn_Course/project/laser-hockey-env-master/results/15-00:29:49/best_optimizer/PPO_HockeyEnv-eps03-discount099-lr00001.pth'))
-
-#ppo.policy.load_state_dict(torch.load('/home/kathi/Dokumente/ReIn_Course/project/laser-hockey-env-master/results/12-13:47:39/PPO_HockeyEnv-eps02-discount099-lr00001-action_std04.pth'))
-#ppo.policy_old.load_state_dict(torch.load('/home/kathi/Dokumente/ReIn_Course/project/laser-hockey-env-master/results/12-13:47:39/PPO_HockeyEnv-eps02-discount099-lr00001-action_std04.pth'))
-
-#ppo.optimizer.load_state_dict(torch.load('/home/kathi/Dokumente/ReIn_Course/project/laser-hockey-env-master/results/12-13:47:39/PPO_HockeyEnv-eps02-discount099-lr00001-action_std04optimizer.pth'))
 
 import datetime
 
@@ -328,6 +312,7 @@ if __name__ == '__main__':
 
 
     average_win_rate = won/(won+lost)
+    
     print(average_win_rate)
     print(won)
     print(lost)
